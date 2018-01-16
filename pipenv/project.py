@@ -338,6 +338,15 @@ class Project(object):
             return json.load(lock)
 
     @property
+    def scripts(self):
+        """Returns a dictionry of scripts, defined in the Pipfile."""
+        scripts = {}
+        for k, v in self.parsed_pipfile.get('scripts', {}).items():
+            scripts[k] = v
+            
+        return scripts
+        
+    @property
     def vcs_packages(self):
         """Returns a list of VCS packages, for not pip-tools to consume."""
         ps = {}

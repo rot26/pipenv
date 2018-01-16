@@ -11,14 +11,16 @@ import tempfile
 from glob import glob
 import json as simplejson
 
-import lazyload
-for module in [
-    'urllib3', 'background', 'dotenv', 'delegator', 'pexpect',
-    'requests', 'pip', 'pipfile', 'pipdeptree', 'requirements',
-    'semver', 'flake8', 'pipreqs', 'blindspin', 'click_didyoumean',
-    '.project', '.utils', 'click', 'dotenv'
-]:
-    lazyload.make_lazy(module)
+# Skip lazy-loading in Travis environment.
+if 'CI' not in os.environ:
+    import lazyload
+    for module in [
+        'urllib3', 'background', 'dotenv', 'delegator', 'pexpect',
+        'requests', 'pip', 'pipfile', 'pipdeptree', 'requirements',
+        'semver', 'flake8', 'pipreqs', 'blindspin', 'click_didyoumean',
+        '.project', '.utils', 'click', 'dotenv'
+    ]:
+        lazyload.make_lazy(module)
 
 import urllib3
 import background
@@ -2251,6 +2253,10 @@ def run(command, args, three=None, python=False):
     # Activate virtualenv under the current interpreter's environment
     inline_activate_virtualenv()
 
+    # If script is defined, load that instead.
+    if command in project.scripts:
+        command = project.scripts[command]
+    
     # Windows!
     if os.name == 'nt':
         import subprocess

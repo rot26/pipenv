@@ -1,3 +1,5 @@
+9.1.0:
+ - Support for [scripts]!
 9.0.2:
  - Massive booting speedups, thanks to module lazy-loading.
  - PIP_INDEX_URL and PIP_EXTRA_INDEX_URL will automatically be honored, when creating a new Pipfile.

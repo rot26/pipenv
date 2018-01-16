@@ -28,11 +28,12 @@ try:
 except ImportError:
     from pathlib2 import Path
 
-import lazyload
-for module in [
-    'piptools', 'contetxlib', 'distutils'
-]:
-    lazyload.make_lazy(module)
+if 'CI' not in os.environ:
+    import lazyload
+    for module in [
+        'piptools', 'contextlib', 'distutils'
+    ]:
+        lazyload.make_lazy(module)
 
 
 from distutils.spawn import find_executable

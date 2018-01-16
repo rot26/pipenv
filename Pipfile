@@ -12,3 +12,7 @@ pytest-xdist = "*"
 [packages]
 
 "e1839a8" = {path = ".", editable = true}
+
+[scripts]
+
+test = "make test"
